@@ -12,7 +12,20 @@ Directory:
 - distance
 """
 
-from numpy import ndarray
+"""
+A Vector is just a one dimensional array
+"""
+from numpy import array as Vector
 
-Vector = ndarray(float)
+def add(v: Vector, w: Vector) -> Vector:
+    """
+    Add the components of two vectors 
+    The i dimensions will add together
+    Vectors must be the same length
+    """
+    assert len(v) == len(w), "Vectors must be the same length!"
+
+    return [v[i] + w[i] for i in range(len(v))]
+
+assert add([1, 2, 3], [2, 4, 6]) == [3, 6, 9]
 
