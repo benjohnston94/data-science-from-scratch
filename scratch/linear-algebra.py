@@ -1,8 +1,9 @@
 """
 Directory:
 - Vector
-- Add
-- Subtract
+- Add two vectors
+- Subtract two vectors
+- Vector sum (component-wise of multiple vectors)
 - Scalar multiply
 - Dot
 """
