@@ -63,7 +63,7 @@ assert vector_sum([[1, 1, 1],
                    [2, 2, 2]]) == [4, 5, 6]
 
 
-def scalar_multiply(v: Vector, x: int) -> Vector:
+def scalar_multiply(v: Vector, x: float) -> Vector:
     """
     Multiplies each component of a vector by
     a constant x
@@ -92,3 +92,29 @@ def vector_mean(matrix: Matrix) -> Vector:
 assert vector_mean([[1, 2, 3],
                     [2, 3, 4],
                     [3, 4, 8]]) == [2, 3, 5]
+
+
+def dot(v: Vector, w: Vector) -> int:
+    """
+    Multiply two vector component-wise and
+    returns the sum of the results
+    """
+    assert len(v) == len(w), "vectors must be the same length!"
+
+    return sum(v_i * w_i for v_i, w_i in zip(v, w))
+
+
+assert dot([2, 3, 4], [2, 2, 2]) == 18
+
+
+def sum_of_squares(v: Vector) -> int:
+    """
+    Returns the sum of squares for a vector
+    i.e. the a vector dotted with itself
+    """
+    return dot(v, v)
+
+
+assert sum_of_squares([2, 2, 2]) == 12
+
+    
