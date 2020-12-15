@@ -118,3 +118,17 @@ def sum_of_squares(v: Vector) -> float:
 assert sum_of_squares([2, 2, 2]) == 12
 
     
+def gradient_step(weights: Vector,
+                  gradients: Vector,
+                  step_size: float):
+    """
+    Takes in current weights, the gradient of the loss functions, and a step size
+    Multiplies the gradients by the step size and adds this to the weights to produce
+    a set of updated values (i.e. takes a 'step' in that direction)
+    NOTE: need to think about the best place to put the negative (currently multiplying by -step_size)
+    """
+    step = scalar_multiply(gradients, -step_size)
+    return add(weights, step)
+
+
+assert gradient_step([10, 20, 30], [1, 2, 3], 0.1) == [9.9, 19.8, 29.7]
