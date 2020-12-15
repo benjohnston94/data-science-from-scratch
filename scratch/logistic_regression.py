@@ -2,7 +2,7 @@
 Steps for logistic regression and the functions required
 
 LINEAR FUNCTION
-- Initialise random betas for each feature
+- Initialise random weights for each feature
 - Output of linear function equals 'log odds' of output
 - Alternatively, the linear function transformed by 
 the logistic function gives the output of the probability
@@ -24,13 +24,40 @@ FUNCTIONS REQUIRED (PYTHON)
 """
 
 import math 
-from scratch.linear-algebra import Vector
+from linear_algebra import Vector, Matrix, dot
 
 def logistic(x: float) -> float:
     """
     Take a number and returns a value between 0 and 1
     """
-    return 1 / (1 + math.exp(x))
+    return 1 / (1 + math.exp(-x))
 
-for x in range(-30, 30):
-    assert 0 < logistic(X) < 1, "logistic should return a value between 0 and 1"
+# a negative input transform by logistic should return a value between 0 and 0.5
+# a positive input should return a value between 0.5 and 1
+assert 0 < logistic(-30) < 0.5
+assert 0 < logistic(0) == 0.5
+assert 0.5 < logistic(30) < 1
+
+
+def _negative_log_likelihood(x: Vector,
+                             y: float,
+                             weights: Vector) -> float:
+    """
+    Return negative log likehood of an input (dotted by function weights)
+    The dot product transform by the logistic function is 'p'
+    Therefore for y = 1, we will return 1 - p
+    and if y = 0, we will just return p
+    """
+    if y == 1:
+        return -math.log(1 - logistic(dot(x, weights)))
+    elif y == 0:
+        return -math.log(logistic(dot(x, weights)))
+    else:
+        raise ValueError(f"invalid y value: {y}")
+
+
+def negative_log_likelihood(X: Matrix,
+                            y: Vector,
+                            weights: Vector) -> float:
+    return sum(_negative_log_likelihood(x, y, weights)
+                for x, y in zip(X, y))

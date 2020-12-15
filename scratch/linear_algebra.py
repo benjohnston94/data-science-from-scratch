@@ -94,7 +94,7 @@ assert vector_mean([[1, 2, 3],
                     [3, 4, 8]]) == [2, 3, 5]
 
 
-def dot(v: Vector, w: Vector) -> int:
+def dot(v: Vector, w: Vector) -> float:
     """
     Multiply two vector component-wise and
     returns the sum of the results
@@ -107,7 +107,7 @@ def dot(v: Vector, w: Vector) -> int:
 assert dot([2, 3, 4], [2, 2, 2]) == 18
 
 
-def sum_of_squares(v: Vector) -> int:
+def sum_of_squares(v: Vector) -> float:
     """
     Returns the sum of squares for a vector
     i.e. the a vector dotted with itself
