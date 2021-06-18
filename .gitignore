@@ -2,3 +2,4 @@
 # scratch/.mypy_cache/
 *.ipynb_checkpoints
 *.log
+*__pycache__
