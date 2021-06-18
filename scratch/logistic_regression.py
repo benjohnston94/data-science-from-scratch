@@ -100,10 +100,13 @@ def logistic_regression(x_train: List[Vector],
                         y_train: Vector,
                         learning_rate: float = 0.001,
                         num_steps: int = 2000,
-                        batch_size: int = 1) -> Vector:
+                        batch_size: int = 200) -> Vector:
     """
     Apply logistic regression using gradient descent
     to find the coefficients of the linear function
+
+    Note: if the batch size is too small the exponential function
+    won't be able to compute it
     """
 
     # Initialise random guess
@@ -136,4 +139,20 @@ if __name__=="__main__":
     xs = [[1.0] + row[:2] for row in data]  # [intercept, variable_1, variable_2]
     ys = [row[2] for row in data]           # targer
     
-    
+    from data_manipulation import rescale
+
+    rescaled_xs = rescale(xs)
+
+    # test the model
+    learning_rate = 0.001
+    beta = logistic_regression(rescaled_xs, ys, learning_rate, 7000, 100)
+    print(beta)
+
+
+    # # Now let's test against sklearn
+    from sklearn.linear_model import LogisticRegression
+    logistic_reg_model = LogisticRegression(fit_intercept=False, penalty='none')
+
+    logistic_reg_model.fit(rescaled_xs, ys)
+    print(logistic_reg_model.coef_)
+
